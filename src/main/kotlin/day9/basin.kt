@@ -17,11 +17,16 @@ fun neighbours(grid: Grid, loc: Loc): List<Loc> {
 fun collectGreaterNeighbours(basin: Basin, grid: Grid, loc: Loc): Basin {
 	basin.add(loc)
 
-	neighbours(grid, loc).filter { nb ->
-		val notMax = grid[nb]!! < 9
-		val isGreaterNeighbour = grid[nb]!! > grid[loc]!!
-		notMax && isGreaterNeighbour
-	}.forEach { nb -> collectGreaterNeighbours(basin, grid, nb) }
+	neighbours(grid, loc)
+		.filter { nb ->
+			val notMax = grid[nb]!! < 9
+			notMax
+		}
+		.filter { nb ->
+			val isGreaterNeighbour = grid[nb]!! > grid[loc]!!
+			isGreaterNeighbour
+		}
+		.forEach { nb -> collectGreaterNeighbours(basin, grid, nb) }
 
 	return basin
 }
