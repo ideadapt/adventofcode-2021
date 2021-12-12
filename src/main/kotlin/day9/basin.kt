@@ -31,7 +31,7 @@ fun collectGreaterNeighbours(basin: Basin, grid: Grid, loc: Loc): Basin {
 	return basin
 }
 
-fun gridBasin(lines: Array<String>): Int {
+fun gridBasin(lines: List<String>): Int {
 	require(lines.isNotEmpty())
 
 	val size = lines[0].length

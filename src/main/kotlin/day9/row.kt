@@ -4,7 +4,7 @@ fun chr2Int(c: Char): Int {
 	return c.toString().toInt()
 }
 
-fun risk(lines: Array<String>): Int {
+fun risk(lines: List<String>): Int {
 	require(lines.isNotEmpty())
 
 	val width = lines[0].length

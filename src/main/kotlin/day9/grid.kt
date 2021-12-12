@@ -12,7 +12,7 @@ fun neighbours(grid: Grid, loc: Loc): List<Int> {
 	return listOf(left, right, top, bottom).mapNotNull { neighbourLoc -> grid.getOrDefault(neighbourLoc, null) }
 }
 
-fun risk(lines: Array<String>): Int {
+fun risk(lines: List<String>): Int {
 	require(lines.isNotEmpty())
 
 	val size = lines[0].length

@@ -125,7 +125,7 @@ internal class Test {
 	@Test
 	fun rowRisk() {
 		val riskSum =
-			row.risk(small.lineSequence().map { it.trim() }.filter { it.isNotEmpty() }.toList().toTypedArray())
+			row.risk(small.trimIndent().lines())
 
 		assertEquals(15, riskSum)
 	}
@@ -133,7 +133,7 @@ internal class Test {
 	@Test
 	fun gridRisk() {
 		val riskSum =
-			grid.risk(small.lineSequence().map { it.trim() }.filter { it.isNotEmpty() }.toList().toTypedArray())
+			grid.risk(small.trimIndent().lines())
 
 		assertEquals(15, riskSum)
 	}
@@ -141,7 +141,7 @@ internal class Test {
 	@Test
 	fun gridBasin() {
 		val basin =
-			basin.gridBasin(small.lineSequence().map { it.trim() }.filter { it.isNotEmpty() }.toList().toTypedArray())
+			basin.gridBasin(small.trimIndent().lines())
 
 		assertEquals(1134, basin)
 	}
