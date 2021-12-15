@@ -3,7 +3,7 @@ package day10
 import java.util.*
 
 fun parse(lines: List<String>): Int {
-	val pairs = mapOf(Pair('(', ')'), Pair('{', '}'), Pair('<', '>'), Pair('[', ']'))
+	val pairs = "([{<".zip(")]}>").toMap()
 	val scores = mapOf(Pair(')', 3), Pair(']', 57), Pair('}', 1197), Pair('>', 25137))
 
 	return lines.mapNotNull { line ->
