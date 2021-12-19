@@ -1,60 +1,42 @@
 package daiy14
 
-fun polymer1(lines: List<String>) = sequence {
+class Production(
+	val input: String,
+	val output: Char,
+	val left: String = input[0].toString() + output,
+	val right: String = output + input[1].toString()
+)
 
-	suspend fun SequenceScope<String>.produce(pair: String, rules: Map<String, String>, depth: Int) {
-		val left = pair.take(1)
-		if (depth == 0) {
-			yield(left)
-		} else {
-			val right = pair.takeLast(1)
-			val insert = rules[left + right]
-			produce(left + insert, rules, depth - 1)
-			produce(insert + right, rules, depth - 1)
-		}
-	}
-
-	val polymer = lines.first()
-	val rules = lines.drop(2).associate { rule -> Pair(rule.take(2), rule.takeLast(1)) }
-	val occ = mutableMapOf<String, Int>()
-
-	for (pair in polymer.windowed(2)) {
-		produce(pair, rules, 30)
-	}
-	yield(polymer.last().toString())
-}
-/*
-fun polymer(lines: List<String>): Int {
+fun polymer(lines: List<String>): Long {
 	require(lines.isNotEmpty()) { "lines must not be empty" }
-	val polymer = lines.first()
-	val rules = lines.drop(2).associate { rule -> Pair(rule.take(2), rule.takeLast(1)) }
-	val occ = mutableMapOf<String, Int>()
+	val template = lines.first()
+	val rules =
+		lines.drop(2).map { rule -> Production(input = rule.take(2), output = rule.takeLast(1).toCharArray()[0]) }
+	val charCount = mutableMapOf<Char, Long>()
+	var lastRoundPairs = mutableMapOf<String, Long>()
 
-	val polymers = polymer.windowed(2).asSequence().flatMap { pair ->
-		produce(pair, rules, 30)
-	} + sequenceOf(polymer.last().toString())
+	template.forEach { char ->
+		charCount.compute(char) { _, count -> (count ?: 0) + 1 }
+	}
 
-//	println(polymers)
+	template.windowed(2).forEach { pair ->
+		lastRoundPairs.compute(pair) { _, count -> (count ?: 0) + 1 }
+	}
 
-/*
-	(1..40).forEach { i ->
-		polymers = polymers.foldIndexed(mutableListOf<Char>()) { idx, withInserts, c ->
-			if(idx == polymers.size-1) withInserts
-			else {
-				val insert = rules[c + polymers[idx + 1].toString()]!!
-				withInserts.add(c)
-				withInserts.add(insert)
-				withInserts
+	(1..10).forEach { _ ->
+		val roundPairs = mutableMapOf<String, Long>()
+		rules.forEach { rule ->
+			if (lastRoundPairs.containsKey(rule.input)) {
+				val nrOfProductions = lastRoundPairs[rule.input]!!
+				roundPairs.compute(rule.left) { _, count -> (count ?: 0) + nrOfProductions }
+				roundPairs.compute(rule.right) { _, count -> (count ?: 0) + nrOfProductions }
+				charCount.compute(rule.output) { _, count -> (count ?: 0) + nrOfProductions }
 			}
-		} + polymers.last()
-		println(i.toString() + " " + polymers.size) //+ " " + polymers.joinToString(""))
+		}
+		lastRoundPairs = roundPairs
 	}
-*/
-	polymers.forEach { c ->
-		occ[c] = occ.getOrDefault(c, 0) + 1
-	}
-	val sorted = occ.values.sorted()
+
+	val sorted = charCount.values.sorted()
 	return sorted.last() - sorted.first()
-//	return 0
 }
-*/
+

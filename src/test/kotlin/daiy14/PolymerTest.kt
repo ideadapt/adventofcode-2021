@@ -133,17 +133,8 @@ VS -> B
 
 	@Test
 	fun polymer() {
-		val produced = polymer1(small.trimIndent().lines())
-		val occ = mutableMapOf<String, Int>()
+		val diff = polymer(small.trimIndent().lines())
 
-		produced.forEach { c ->
-			occ[c] = occ.getOrDefault(c, 0) + 1
-		}
-		val sorted = occ.values.sorted()
-		val diff = sorted.last() - sorted.first()
 		assertEquals(1588, diff)
-
-//		println(diff.toList().size)
-//		assertEquals(1588, diff.toList())
 	}
 }
