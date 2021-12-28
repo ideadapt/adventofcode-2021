@@ -1,6 +1,6 @@
 package daiy14
 
-data class Tuple(val left: String, val right: String, val pair: String = left + right)
+data class Tuple(val left: String, val right: String, val pair: Pair<String, String> = Pair(left, right))
 data class TupleCount(val tuple: Tuple, val count: Long)
 
 fun mapReduce(
@@ -16,7 +16,7 @@ fun mapReduce(
 fun polymer(lines: List<String>): Long {
 	require(lines.isNotEmpty()) { "lines must not be empty" }
 	val rules = lines.drop(2).associate { rule ->
-		Pair(rule.take(2), rule.takeLast(1))
+		Pair(Pair(rule.take(1), rule.drop(1).take(1)), rule.takeLast(1))
 	}
 	val template = lines.first()
 
@@ -24,7 +24,7 @@ fun polymer(lines: List<String>): Long {
 		TupleCount(Tuple(left = it.take(1), right = it.takeLast(1)), 1)
 	}
 
-	(1..10).forEach { _ ->
+	(1..100_000).forEach { _ ->
 		tupleCounts = mapReduce(
 			mapper = { tupleCount ->
 				val new = rules[tupleCount.tuple.pair]!!
