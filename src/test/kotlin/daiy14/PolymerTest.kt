@@ -1,7 +1,8 @@
 package daiy14
 
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
-import kotlin.test.assertEquals
+import kotlin.system.measureTimeMillis
 
 internal class PolymerTest {
 
@@ -133,8 +134,21 @@ VS -> B
 
 	@Test
 	fun polymer() {
-		val diff = polymer(small.trimIndent().lines())
+		measureTimeMillis {
+			runBlocking {
+				val diff = polymerMRObj(small.trimIndent().lines(), 10)
 
-		assertEquals(1588, diff)
+//				assertEquals(1588, diff)
+			}
+		}.also { println(it) }
+
+		// ~2-5 times faster
+		measureTimeMillis {
+			runBlocking {
+				val diff = polymerMRFun(small.trimIndent().lines(), 10)
+
+//				assertEquals(1588, diff)
+			}
+		}.also { println(it) }
 	}
 }
