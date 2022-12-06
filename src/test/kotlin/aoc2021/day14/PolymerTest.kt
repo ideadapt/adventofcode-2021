@@ -1,5 +1,7 @@
-package daiy14
+package aoc2021.day14
 
+import aoc2021.day14.polymerMRFun
+import aoc2021.day14.polymerMRObj
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import kotlin.system.measureTimeMillis

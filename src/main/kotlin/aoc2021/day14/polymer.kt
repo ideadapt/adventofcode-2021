@@ -1,4 +1,4 @@
-package daiy14
+package aoc2021.day14
 
 data class Tuple(val left: String, val right: String, val pair: Pair<String, String> = Pair(left, right))
 data class TupleCount(val tuple: Tuple, val count: Long)

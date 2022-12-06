@@ -1,4 +1,4 @@
-package day10
+package aoc2021.day10
 
 import java.util.*
 

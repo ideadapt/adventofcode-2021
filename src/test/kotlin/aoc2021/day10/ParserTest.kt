@@ -1,4 +1,4 @@
-package day10
+package aoc2021.day10
 
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
@@ -113,7 +113,7 @@ internal class ParserTest {
 
 	@Test
 	fun parse() {
-		val score = parse(big.trimIndent().lines())
+		val score = aoc2021.day10.parse(big.trimIndent().lines())
 		Assertions.assertEquals(370407, score)
 	}
 }
