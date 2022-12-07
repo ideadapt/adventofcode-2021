@@ -1,1 +1,1 @@
-# adventofcode-2021
+# advent of code 2021 and 2022
