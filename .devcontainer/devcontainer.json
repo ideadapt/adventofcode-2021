@@ -4,7 +4,9 @@
   "features": {
     "ghcr.io/devcontainers-contrib/features/gradle-sdkman:2": {},
     "ghcr.io/devcontainers-contrib/features/kotlin-sdkman:2": {},
-    "ghcr.io/devcontainers/features/java:1": {}
+    // includes common-utils feature (zsh, jq, htop, sudo, ...)
+    "ghcr.io/devcontainers/features/java:1": {},
+    "ghcr.io/devcontainers/features/git:1": {}
   },
   "customizations": {
     "vscode": {
