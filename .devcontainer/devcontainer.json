@@ -1,0 +1,8 @@
+{
+  "name": "adventofcode-kotlin",
+  "image": "ubuntu:latest",
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/gradle-sdkman:2": {},
+    "ghcr.io/devcontainers-contrib/features/kotlin-sdkman:2": {}
+  }
+}
