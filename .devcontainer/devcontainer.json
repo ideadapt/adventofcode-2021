@@ -3,6 +3,16 @@
   "image": "ubuntu:latest",
   "features": {
     "ghcr.io/devcontainers-contrib/features/gradle-sdkman:2": {},
-    "ghcr.io/devcontainers-contrib/features/kotlin-sdkman:2": {}
+    "ghcr.io/devcontainers-contrib/features/kotlin-sdkman:2": {},
+    "ghcr.io/devcontainers/features/java:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // contained in java feature as well
+        "vscjava.vscode-java-pack",
+        "vscjava.vscode-gradle"
+      ]
+    }
   }
 }
