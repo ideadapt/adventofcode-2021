@@ -6,23 +6,43 @@ import org.junit.jupiter.api.Test
 class CalibrationTest {
 
     @Test
-    fun test() {
-        Assertions.assertEquals(142, Calibration().calibrationValuesSum(testInput.lines()))
+    fun testPart1() {
+        Assertions.assertEquals(142, Calibration().calibrationValuesSumPart1(testInputPart1.lines()))
     }
 
     @Test
-    fun solve() {
-        Assertions.assertEquals(56506, Calibration().calibrationValuesSum(input.lines()))
+    fun testPart2() {
+        Assertions.assertEquals(281, Calibration().calibrationValuesSumPart2(testInputPart2.lines()))
     }
 
-    val testInput = """
+    @Test
+    fun solvePart1() {
+        Assertions.assertEquals(56506, Calibration().calibrationValuesSumPart1(inputPart1.lines()))
+    }
+
+    @Test
+    fun solvePart2() {
+        Assertions.assertEquals(56017, Calibration().calibrationValuesSumPart2(inputPart1.lines()))
+    }
+
+    val testInputPart1 = """
         1abc2
         pqr3stu8vwx
         a1b2c3d4e5f
         treb7uchet
     """.trimIndent()
 
-    val input = """
+    val testInputPart2 = """
+        two1nine
+        eightwothree
+        abcone2threexyz
+        xtwone3four
+        4nineeightseven2
+        zoneight234
+        7pqrstsixteen
+    """.trimIndent()
+
+    val inputPart1 = """
         nkzjrdqrmpztpqninetwofour1znnkd
         s5sevenxrdfr4mhpstgbjcfqckronesix
         3four4
