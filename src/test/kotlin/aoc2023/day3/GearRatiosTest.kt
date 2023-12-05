@@ -10,8 +10,18 @@ class GearRatiosTest {
     }
 
     @Test
+    fun testPart2() {
+        assertEquals(467835, GearRatios().gearRatioSum(testPart1.lines()))
+    }
+
+    @Test
     fun solvePart1() {
         assertEquals(520135, GearRatios().partNumbersSum(part1.lines()))
+    }
+
+    @Test
+    fun solvePart2() {
+        assertEquals(72514855, GearRatios().gearRatioSum(part1.lines()))
     }
 
     val testPart1 = """
