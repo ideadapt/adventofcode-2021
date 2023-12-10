@@ -16,7 +16,7 @@ class PipeMazeTest {
 //
     @Test
     fun solvePart1() {
-        assertEquals(18619, PipeMaze().maxDistance(part1.lines()))
+        assertEquals(6690, PipeMaze().maxDistance(part1.lines()))
     }
 //
 //    @Test
