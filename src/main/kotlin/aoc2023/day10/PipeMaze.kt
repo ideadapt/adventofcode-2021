@@ -20,7 +20,7 @@ data class Cell(
     val x: Int,
     val y: Int,
     val pipe: Char,
-    val directions: Set<Int> = pipeDirections[pipe]!!
+    val dirs: Set<Int> = pipeDirections[pipe]!!
 )
 
 val nullCell = Cell(x = -1, y = -1, pipe = '.')
@@ -44,7 +44,7 @@ class PipeMaze {
     fun maxDistance(lines: List<String>): Int {
         val posToCell = lines.flatMapIndexed { y, line ->
             line.trim().mapIndexed { x, char -> Cell(x, y, char) }
-        }.associateBy { "${it.x}-${it.y}" }
+        }.associateBy { it.x to it.y }
 
         val start = posToCell.values.first { it.pipe == 'S' }
 
@@ -62,35 +62,25 @@ class PipeMaze {
         return path.size / 2
     }
 
-    private fun findNext(curr: Cell, posToCell: Map<String, Cell>, path: Set<Cell>, start: Cell): Cell {
-        val topNeighbour = posToCell["${curr.x}-${curr.y - 1}"] ?: nullCell
-        val rightNeighbour = posToCell["${curr.x + 1}-${curr.y}"] ?: nullCell
-        val bottomNeighbour = posToCell["${curr.x}-${curr.y + 1}"] ?: nullCell
-        val leftNeighbour = posToCell["${curr.x - 1}-${curr.y}"] ?: nullCell
+    private fun findNext(curr: Cell, posToCell: Map<Pair<Int, Int>, Cell>, path: Set<Cell>, start: Cell): Cell {
+        val topCell = posToCell[curr.x to curr.y - 1] ?: nullCell
+        val rightCell = posToCell[curr.x + 1 to curr.y] ?: nullCell
+        val bottomCell = posToCell[curr.x to curr.y + 1] ?: nullCell
+        val leftCell = posToCell[curr.x - 1 to curr.y] ?: nullCell
 
-        val currDirections = pipeDirections[curr.pipe]!!
-        return if (topNeighbour.directions.contains(bottom) && currDirections.contains(top) && (!path.contains(
-                topNeighbour
-            ) || (topNeighbour == start && path.size > 2))
-        ) {
-            topNeighbour
-        } else if (rightNeighbour.directions.contains(left) && currDirections.contains(right) && (!path.contains(
-                rightNeighbour
-            ) || (rightNeighbour == start && path.size > 2))
-        ) {
-            rightNeighbour
-        } else if (leftNeighbour.directions.contains(right) && currDirections.contains(left) && (!path.contains(
-                leftNeighbour
-            ) || (leftNeighbour == start && path.size > 2))
-        ) {
-            leftNeighbour
-        } else if (bottomNeighbour.directions.contains(top) && currDirections.contains(bottom) && (!path.contains(
-                bottomNeighbour
-            ) || (bottomNeighbour == start && path.size > 2))
-        ) {
-            bottomNeighbour
+        return if (bottom in topCell.dirs && top in curr.dirs && newOrEnd(path, topCell, start)) {
+            topCell
+        } else if (left in rightCell.dirs && right in curr.dirs && newOrEnd(path, rightCell, start)) {
+            rightCell
+        } else if (right in leftCell.dirs && left in curr.dirs && newOrEnd(path, leftCell, start)) {
+            leftCell
+        } else if (top in bottomCell.dirs && bottom in curr.dirs && newOrEnd(path, bottomCell, start)) {
+            bottomCell
         } else {
             throw IllegalStateException("no connection for $curr, left: $left, right: $right, bottom: $bottom, top: $top\n$path")
         }
     }
+
+    private fun newOrEnd(path: Set<Cell>, cell: Cell, start: Cell): Boolean =
+        !path.contains(cell) || (cell == start && path.size > 2)
 }
